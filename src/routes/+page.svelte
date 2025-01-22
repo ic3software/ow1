@@ -83,20 +83,20 @@
 				<label
 					for="tags"
 					class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-					>Keywords</label
+					>Tags</label
 				>
 				<div
-					class="flex min-h-[80px] w-full flex-wrap gap-2 rounded-md border border-input bg-background p-3"
+					class="flex min-h-[60px] w-full flex-wrap gap-2 rounded-md border border-input bg-background p-3"
 				>
 					{#each tags as tag, index (tag + index)}
-						<span class="inline-flex items-center rounded-full bg-secondary/10 px-3 py-1 text-sm">
+						<span class="inline-flex items-center rounded-lg bg-secondary/25 pl-5 pr-3 py-0 text-sm">
 							{tag}
 							<button
 								type="button"
 								class="ml-2 rounded-full p-0.5 hover:bg-secondary/20"
 								on:click={() => removeTag(index)}
 							>
-								<X class="h-3 w-4" />
+								<X class="h-4 w-4" />
 								<span class="sr-only">Remove {tag}</span>
 							</button>
 						</span>
