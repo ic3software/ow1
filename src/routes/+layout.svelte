@@ -4,6 +4,20 @@
 </script>
 
 <svelte:head>
+	<script>
+		// Immediately invoked function to avoid global scope pollution
+		(function() {
+			try {
+				const theme = localStorage.getItem('theme') || 'system';
+				if (theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+					document.documentElement.classList.add('dark');
+				}
+			} catch (e) {
+				// Handle cases where localStorage is not available
+				console.error('Error setting theme:', e);
+			}
+		})();
+	</script>
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
 	<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&family=Poppins:wght@400;500&family=Roboto:wght@500&display=swap" rel="stylesheet">

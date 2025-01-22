@@ -2,10 +2,15 @@
   import { Sun, Moon, Laptop } from 'lucide-svelte';
   import { Button } from '$lib/components/ui/button';
   import { cn } from '$lib/utils';
+  import { browser } from '$app/environment';
 
-  let theme = $state('system');
+  let theme = $state(browser ? localStorage.getItem('theme') || 'system' : 'system');
   
   $effect(() => {
+    if (!browser) return;
+    
+    localStorage.setItem('theme', theme);
+    
     if (theme === 'dark') {
       document.documentElement.classList.add('dark');
       document.documentElement.classList.remove('light');
