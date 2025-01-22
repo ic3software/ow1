@@ -65,7 +65,7 @@ UI and Styling
 - Import Shadcn components from `$lib/components/ui`
 - Organize Tailwind classes using the `cn()` utility from `$lib/utils`
 - Use Svelte's built-in transition and animation features
-- For complex components, consider using Tailwind's @apply directive in a scoped <style> block
+- For complex components, consider using Tailwind's @apply directive in a scoped &lt;style&gt; block
 - Use dynamic classes with template literals when necessary:
 
   <div class={`bg-blue-500 p-4 ${isActive ? 'opacity-100' : 'opacity-50'}`}>
@@ -115,7 +115,6 @@ File Structure
 - Use +page.svelte for page components and +layout.svelte for layouts
 - Place reusable utility functions in src/lib/utils/
 - Store types and interfaces in src/lib/types/
-
 
 Performance Optimization
 
