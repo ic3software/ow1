@@ -3,17 +3,19 @@
 	import { Button } from '$lib/components/ui/button';
 	import { generateKeywords } from '$lib/gemini';
 
-	let inputText = '';
+	let titleText = '';
+	let keywordText = '';
 	let tagInput = '';
 	let tags: string[] = [];
 	let isGenerating = false;
 
 	async function generateTags() {
-		if (!inputText.trim()) return;
-
+		if (!titleText.trim() && !keywordText.trim()) return;
+		
 		isGenerating = true;
 		try {
-			const keywords = await generateKeywords(inputText);
+			const combinedText = `${titleText.trim()}\n\n${keywordText.trim()}`;
+			const keywords = await generateKeywords(combinedText);
 			tags = [...new Set(keywords)]; // Remove duplicates
 		} catch (error) {
 			console.error('Failed to generate tags:', error);
@@ -57,13 +59,28 @@
 		<form class="space-y-6" on:submit|preventDefault={handleSubmit}>
 			<div class="space-y-2">
 				<label
+					for="title-text"
+					class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+					>Title</label
+				>
+				<input
+					id="title-text"
+					type="text"
+					bind:value={titleText}
+					class="flex w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+					placeholder="Enter a title..."
+				/>
+			</div>
+
+			<div class="space-y-2">
+				<label
 					for="input-text"
 					class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
 					>Description</label
 				>
 				<textarea
 					id="input-text"
-					bind:value={inputText}
+					bind:value={keywordText}
 					class="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
 					placeholder="Enter your text here..."
 				></textarea>
@@ -89,7 +106,9 @@
 					class="flex min-h-[60px] w-full flex-wrap gap-2 rounded-md border border-input bg-background p-3"
 				>
 					{#each tags as tag, index (tag + index)}
-						<span class="inline-flex items-center rounded-lg bg-secondary/25 pl-5 pr-3 py-0 text-sm">
+						<span
+							class="inline-flex items-center rounded-lg bg-secondary/25 py-0 pl-5 pr-3 text-sm"
+						>
 							{tag}
 							<button
 								type="button"
