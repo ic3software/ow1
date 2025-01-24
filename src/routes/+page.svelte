@@ -11,7 +11,7 @@
 
 	async function generateTags() {
 		if (!titleText.trim() && !keywordText.trim()) return;
-		
+
 		isGenerating = true;
 		try {
 			const combinedText = `${titleText.trim()}\n\n${keywordText.trim()}`;
