@@ -7,7 +7,7 @@ export async function generateKeywords(text: string): Promise<string[]> {
 	const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 
 	const systemInstruction =
-		'Summarize into keywords the items or services being offered and requested. Only return the keywords, no other text (punctuation, paragraphs, etc.). Try to find the most relevant keywords and phrases (focus on words that are most relevant to the offer or want), keeping in mind that the first line submitted before the two linefeeds is the title of the offer or want.';
+		'Summarize into keywords the items or services being offered and requested. Only return the keywords, no other text (punctuation, paragraphs, etc.). Try to find the most relevant keywords and phrases. Give more weight to the first line submitted, which is the title of the offer or want. Favor distinct keywords (e.g., "organic" "wine", not "organic wine").';
 
 	try {
 		const result = await model.generateContent([systemInstruction, text]);
